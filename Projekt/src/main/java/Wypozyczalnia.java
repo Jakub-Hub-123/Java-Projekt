@@ -3,13 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class okienko {
 
+public class Wypozyczalnia {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new okienko().createGUI();
+            new Wypozyczalnia().createGUI();
         });
-    }siemanko
+    }
 
     public void createGUI() {
         JFrame frame = new JFrame("Wypożyczalnia nart");
@@ -49,3 +49,4 @@ public class okienko {
         frame.setVisible(true);
     }
 }
+
