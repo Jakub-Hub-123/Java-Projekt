@@ -9,7 +9,7 @@ public class okienko {
         SwingUtilities.invokeLater(() -> {
             new okienko().createGUI();
         });
-    }
+    }siemanko
 
     public void createGUI() {
         JFrame frame = new JFrame("Wypożyczalnia nart");
