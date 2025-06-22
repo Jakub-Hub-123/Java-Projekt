@@ -2,46 +2,65 @@ package projekt4.model;
 
 import org.junit.jupiter.api.Test;
 import projekt4.model.Customer;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class CustomerTest {
+public class CustomerTest {
+    /**
+     * Stworzenie przykładowego klienta
+     */
+    Customer c = new Customer("Jakub", "Nowak", "ID123", "Opis");
+/**
+ * Testy getterów
+ */
 
-    Customer c = new Customer("Anna", "Nowak", "ID1", "Opis");
-
-    @Test
-    void getFirstName() {
-        assertEquals("Anna", c.getFirstName());
+/**
+ * Sprawdza imię
+ */
+@Test
+    public void getFirstNameTest() {
+        assertEquals("Jakub", c.getFirstName());
     }
-
+    /**
+     * Sprawdza nazwisko
+     */
     @Test
-    void getLastName() {
+    public void getLastNameTest() {
         assertEquals("Nowak", c.getLastName());
     }
-
+    /**
+     * Sprawdza numer dokumentu
+     */
     @Test
-    void getDocumentNumber() {
-        assertEquals("ID1", c.getDocumentNumber());
+    public void getDocumentNumberTest() {
+        assertEquals("ID123", c.getDocumentNumber());
     }
-
+    /**
+     * Sprawdza notatki
+     */
     @Test
-    void getNotes() {
+    public void getNotesTest() {
         assertEquals("Opis", c.getNotes());
     }
-
+    /**
+     * Sprawdza, czy obiekt zawiera imię (służy do czytelnego opisu obiektu)
+     */
     @Test
-    void testToString() {
-        assertTrue(c.toString().contains("Anna"));
+    public void toStringTest() {
+        assertTrue(c.toString().contains("Jakub"));
     }
-
+    /**
+     * Sprawdza równość klientów po numerze dokumentu (porównuje logicznie dwóch klientów)
+     */
     @Test
-    void testEquals() {
+    public void equalsTest() {
         Customer c2 = new Customer("X", "Y", "ID1", "inne");
         assertEquals(c, c2);
     }
-
+    /**
+     * Sprawdza, czy obiekty równe logicznie mają ten sam hash
+     */
     @Test
-    void testHashCode() {
+    public void hashCodeTest() {
         Customer c2 = new Customer("X", "Y", "ID1", "inne");
         assertEquals(c.hashCode(), c2.hashCode());
     }

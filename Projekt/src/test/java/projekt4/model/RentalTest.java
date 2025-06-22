@@ -2,83 +2,146 @@ package projekt4.model;
 
 import org.junit.jupiter.api.Test;
 import projekt4.model.*;
-
 import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class RentalTest {
-
-    Customer customer = new Customer("Ewa", "Nowak", "ID123", "");
-    SkiType type = new SkiType("Carving", "Narty na trasę");
-    Ski ski = new Ski(type, "Head", "i.Supershape", "Tyrolia", 165);
+public class RentalTest {
+/**
+ *Tworzymy przykładowego klienta
+ */
+    Customer customer = new Customer("Jakub", "Nowak", "ID123456789", "");
+    /**
+    *Tworzymy przykładowy typ nart
+     */
+    SkiType type = new SkiType("Szosowe", "Narty na trasę");
+    /**
+     * Tworzenie przykładowych nart
+     */
+    Ski ski = new Ski(type, "Head", "Q10", "Alpejskie", 170);
+    /**
+     * Data wypożyczenia (od i do)
+     */
     LocalDateTime from = LocalDateTime.now();
     LocalDateTime to = from.plusDays(2);
+    /**
+     * Dodajemy nowe wypożyczenie
+      */
+
     Rental rental = new Rental(customer, ski, from, to, "Pierwszy raz");
+    /**
+     * Testy getterów:
+      */
+
+    /**
+     * Czy jest zwracany ten sam klient
+      */
 
     @Test
-    void getCustomer() {
+    public void getCustomerTest() {
         assertEquals(customer, rental.getCustomer());
     }
 
+    /**
+     * Czy zwracane narty są poprawne
+      */
+
     @Test
-    void getSki() {
+    public void getSkiTest() {
         assertEquals(ski, rental.getSki());
     }
 
+    /**
+     * Sprawdzanie daty rozpoczęcia wypożyczenia
+      */
+
     @Test
-    void getDateFrom() {
+    public void getDateFromTest() {
         assertEquals(from, rental.getDateFrom());
     }
 
+    /**
+     * Sprawdzanie daty zakończenia wypożyczenia
+      */
+
     @Test
-    void getDateTo() {
+    public void getDateToTest() {
         assertEquals(to, rental.getDateTo());
     }
 
-    @Test
-    void getStatus() {
-        assertEquals(Rental.RentalStatus.ACTIVE, rental.getStatus());
-    }
+    /**
+     * Sprawdzanie domyślnego statusu wypożyczenia (Powinien być ACTIVE)
+      */
 
     @Test
-    void setStatus() {
+    public void getStatusTest() {
+        assertEquals(Rental.RentalStatus.ACTIVE, rental.getStatus());
+    }
+    /**
+     * Sprawdza, czy program poprawnie zwraca notatki
+      */
+
+    @Test
+    public void getNotesTest() {
+        assertEquals("Pierwszy raz", rental.getNotes());
+    }
+
+    /**
+     * Testy setterów
+      */
+
+    /**
+     * Testuje zmianę statusu wypożyczenia (RETURNED)
+      */
+
+    @Test
+    public void setStatusTest() {
         rental.setStatus(Rental.RentalStatus.RETURNED);
         assertEquals(Rental.RentalStatus.RETURNED, rental.getStatus());
     }
 
-    @Test
-    void getNotes() {
-        assertEquals("Pierwszy raz", rental.getNotes());
-    }
+    /**
+     * Zmiana notatek
+      */
 
     @Test
-    void setNotes() {
+    public void setNotesTest() {
         rental.setNotes("Zmiana");
         assertEquals("Zmiana", rental.getNotes());
     }
+    /**
+     * Sprawdza, czy wypożyczenia są przeterminowane
+      */
 
     @Test
-    void isOverdue() {
+    public void isOverdueTest() {
         Rental r = new Rental(customer, ski, from.minusDays(5), from.minusDays(3), "");
         assertTrue(r.isOverdue(LocalDateTime.now()));
         r.setStatus(Rental.RentalStatus.RETURNED);
         assertFalse(r.isOverdue(LocalDateTime.now()));
     }
+    /**
+     * Sprawdza, czy zawiera słowo "Wypożyczenie"
+      */
 
     @Test
-    void testToString() {
+    public void toStringTest() {
         assertTrue(rental.toString().contains("Wypożyczenie"));
     }
+    /**
+     * Sprawdza, czy dwa identyczne wypożyczenia są sobie równe
+      */
 
     @Test
-    void testEquals() {
+    public void equalsTest() {
         Rental rental2 = new Rental(customer, ski, from, to, "Pierwszy raz");
         assertEquals(rental, rental2);
     }
+    /**
+     * Sprawdza, czy identyczne obiekty mają taki sam hash (Powinno być spójne z equals)
+      */
 
     @Test
-    void testHashCode() {
+    public void hashCodeTest() {
         Rental rental2 = new Rental(customer, ski, from, to, "Pierwszy raz");
         assertEquals(rental.hashCode(), rental2.hashCode());
     }

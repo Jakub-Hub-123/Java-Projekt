@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 /**
- * Panel GUI do zarządzania typami nart.
+ * Panel do zarządzania typami nart.
+ * Pozwala dodawać, edytować oraz usuwać typy nart.
  */
 public class SkiTypePanel extends JPanel {
 
@@ -17,6 +18,10 @@ public class SkiTypePanel extends JPanel {
     private final DefaultListModel<SkiType> skiTypeListModel;
     private final JList<SkiType> skiTypeJList;
 
+    /**
+     * Tworzy panel typów nart.
+     * @param rentalManager menedżer wypożyczeń zawierający typy nart
+     */
     public SkiTypePanel(RentalManager rentalManager) {
         this.rentalManager = rentalManager;
         this.skiTypeListModel = new DefaultListModel<>();
@@ -29,6 +34,10 @@ public class SkiTypePanel extends JPanel {
         refreshList();
     }
 
+    /**
+     * Tworzy pasek narzędzi z przyciskami dodaj/edytuj/usuń.
+     * @return panel narzędzi
+     */
     private JPanel createToolbar() {
         JPanel panel = new JPanel();
 
@@ -47,6 +56,9 @@ public class SkiTypePanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Obsługuje dodawanie nowego typu nart.
+     */
     private void onAdd(ActionEvent e) {
         JTextField nameField = new JTextField();
         JTextField descField = new JTextField();
@@ -64,6 +76,9 @@ public class SkiTypePanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługuje edycję zaznaczonego typu nart.
+     */
     private void onEdit(ActionEvent e) {
         SkiType selected = skiTypeJList.getSelectedValue();
         if (selected == null) {
@@ -87,6 +102,9 @@ public class SkiTypePanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługuje usuwanie zaznaczonego typu nart.
+     */
     private void onDelete(ActionEvent e) {
         SkiType selected = skiTypeJList.getSelectedValue();
         if (selected != null) {
@@ -97,6 +115,9 @@ public class SkiTypePanel extends JPanel {
         }
     }
 
+    /**
+     * Odświeża listę typów nart w panelu.
+     */
     private void refreshList() {
         skiTypeListModel.clear();
         List<SkiType> types = rentalManager.getSkiTypes();

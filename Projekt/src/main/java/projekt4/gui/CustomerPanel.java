@@ -9,14 +9,25 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 /**
- * Panel GUI do zarządzania klientami wypożyczalni.
+ * Panel GUI odpowiedzialny za zarządzanie klientami w aplikacji wypożyczalni nart.
+ * Pozwala na dodawanie, edytowanie oraz usuwanie klientów.
  */
 public class CustomerPanel extends JPanel {
 
+    /** Obiekt zarządzający danymi wypożyczalni. */
     private final RentalManager rentalManager;
+
+    /** Model listy klientów, wykorzystywany do odświeżania widoku. */
     private final DefaultListModel<Customer> customerListModel;
+
+    /** Graficzna lista klientów wyświetlana użytkownikowi. */
     private final JList<Customer> customerJList;
 
+    /**
+     * Konstruktor inicjalizujący panel klienta.
+     *
+     * @param rentalManager obiekt zarządzający danymi aplikacji
+     */
     public CustomerPanel(RentalManager rentalManager) {
         this.rentalManager = rentalManager;
         this.customerListModel = new DefaultListModel<>();
@@ -29,6 +40,11 @@ public class CustomerPanel extends JPanel {
         refreshList();
     }
 
+    /**
+     * Tworzy pasek narzędzi z przyciskami dodaj/edytuj/usuń.
+     *
+     * @return panel z przyciskami
+     */
     private JPanel createToolbar() {
         JPanel panel = new JPanel();
 
@@ -47,6 +63,11 @@ public class CustomerPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Obsługa dodawania nowego klienta – wyświetla formularz i zapisuje dane.
+     *
+     * @param e zdarzenie kliknięcia przycisku
+     */
     private void onAdd(ActionEvent e) {
         JTextField firstNameField = new JTextField();
         JTextField lastNameField = new JTextField();
@@ -73,6 +94,11 @@ public class CustomerPanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługa edycji wybranego klienta – umożliwia modyfikację danych.
+     *
+     * @param e zdarzenie kliknięcia przycisku
+     */
     private void onEdit(ActionEvent e) {
         Customer selected = customerJList.getSelectedValue();
         if (selected == null) {
@@ -102,6 +128,11 @@ public class CustomerPanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługa usuwania wybranego klienta z listy.
+     *
+     * @param e zdarzenie kliknięcia przycisku
+     */
     private void onDelete(ActionEvent e) {
         Customer selected = customerJList.getSelectedValue();
         if (selected != null) {
@@ -112,6 +143,9 @@ public class CustomerPanel extends JPanel {
         }
     }
 
+    /**
+     * Odświeża listę klientów wyświetlaną w panelu.
+     */
     private void refreshList() {
         customerListModel.clear();
         List<Customer> customers = rentalManager.getCustomers();

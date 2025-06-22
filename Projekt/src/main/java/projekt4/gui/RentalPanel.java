@@ -12,14 +12,28 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Panel GUI do zarządzania wypożyczeniami i zwrotami nart.
+ * Panel graficzny do obsługi wypożyczeń nart.
+ * Umożliwia tworzenie nowych wypożyczeń, ich zwracanie oraz usuwanie.
  */
 public class RentalPanel extends JPanel {
-
+    /**
+     * Manager danych wypożyczalni
+     */
     private final RentalManager rentalManager;
+    /**
+     * Model listy wypożyczeń używany przez JList
+     */
     private final DefaultListModel<Rental> rentalListModel;
+    /**
+     * Komponent graficzny wyświetlający listę wypożyczeń
+     */
     private final JList<Rental> rentalJList;
 
+    /**
+     * Tworzy nowy panel wypożyczeń.
+     *
+     * @param rentalManager obiekt zarządzający danymi wypożyczalni
+     */
     public RentalPanel(RentalManager rentalManager) {
         this.rentalManager = rentalManager;
         this.rentalListModel = new DefaultListModel<>();
@@ -32,6 +46,11 @@ public class RentalPanel extends JPanel {
         refreshList();
     }
 
+    /**
+     * Tworzy pasek narzędziowy z przyciskami do zarządzania wypożyczeniami.
+     *
+     * @return panel z przyciskami
+     */
     private JPanel createToolbar() {
         JPanel panel = new JPanel();
 
@@ -50,6 +69,11 @@ public class RentalPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Obsługuje akcję wypożyczenia nart.
+     *
+     * @param e zdarzenie akcji
+     */
     private void onRent(ActionEvent e) {
         if (rentalManager.getCustomers().isEmpty() || rentalManager.getAvailableSkis().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Dodaj klienta i dostępne narty.");
@@ -89,6 +113,11 @@ public class RentalPanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługuje akcję zwrotu wypożyczenia.
+     *
+     * @param e zdarzenie akcji
+     */
     private void onReturn(ActionEvent e) {
         Rental selected = rentalJList.getSelectedValue();
         if (selected == null) {
@@ -108,6 +137,11 @@ public class RentalPanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługuje akcję usunięcia wypożyczenia.
+     *
+     * @param e zdarzenie akcji
+     */
     private void onDelete(ActionEvent e) {
         Rental selected = rentalJList.getSelectedValue();
         if (selected != null) {
@@ -121,6 +155,9 @@ public class RentalPanel extends JPanel {
         }
     }
 
+    /**
+     * Odświeża listę wypożyczeń w panelu.
+     */
     private void refreshList() {
         rentalListModel.clear();
         List<Rental> allRentals = rentalManager.getRentals();

@@ -10,7 +10,8 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 /**
- * Panel GUI do zarządzania nartami.
+ * Panel do zarządzania nartami w systemie wypożyczalni.
+ * Umożliwia dodawanie, edytowanie oraz usuwanie nart.
  */
 public class SkiPanel extends JPanel {
 
@@ -18,6 +19,10 @@ public class SkiPanel extends JPanel {
     private final DefaultListModel<Ski> skiListModel;
     private final JList<Ski> skiJList;
 
+    /**
+     * Tworzy panel do zarządzania nartami.
+     * @param rentalManager menedżer wypożyczeń zawierający listę nart
+     */
     public SkiPanel(RentalManager rentalManager) {
         this.rentalManager = rentalManager;
         this.skiListModel = new DefaultListModel<>();
@@ -30,6 +35,10 @@ public class SkiPanel extends JPanel {
         refreshList();
     }
 
+    /**
+     * Tworzy pasek narzędzi z przyciskami akcji.
+     * @return panel z przyciskami
+     */
     private JPanel createToolbar() {
         JPanel panel = new JPanel();
 
@@ -48,6 +57,9 @@ public class SkiPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Obsługuje dodawanie nowej pary nart.
+     */
     private void onAdd(ActionEvent e) {
         if (rentalManager.getSkiTypes().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Najpierw dodaj typ nart.");
@@ -82,6 +94,9 @@ public class SkiPanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługuje edycję zaznaczonej pary nart.
+     */
     private void onEdit(ActionEvent e) {
         Ski selected = skiJList.getSelectedValue();
         if (selected == null) {
@@ -121,6 +136,9 @@ public class SkiPanel extends JPanel {
         }
     }
 
+    /**
+     * Obsługuje usuwanie zaznaczonej pary nart.
+     */
     private void onDelete(ActionEvent e) {
         Ski selected = skiJList.getSelectedValue();
         if (selected != null) {
@@ -131,6 +149,9 @@ public class SkiPanel extends JPanel {
         }
     }
 
+    /**
+     * Odświeża listę nart wyświetlanych w panelu.
+     */
     private void refreshList() {
         skiListModel.clear();
         List<Ski> skis = rentalManager.getSkis();

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"projekt4.gui"},{"l":"projekt4.model"},{"l":"projekt4.service"}];updateSearchResults();

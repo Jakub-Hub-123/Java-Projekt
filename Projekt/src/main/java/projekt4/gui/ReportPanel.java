@@ -10,14 +10,31 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Panel GUI do raportowania stanu nart w wypożyczalni.
+ * Panel generujący raporty dotyczące nart i wypożyczeń.
+ * Umożliwia wyświetlanie listy dostępnych nart, aktywnych wypożyczeń oraz przeterminowanych zwrotów.
  */
 public class ReportPanel extends JPanel {
 
+    /**
+     * Manager danych wypożyczalni
+     */
     private final RentalManager rentalManager;
+
+    /**
+     * Model listy raportów
+     */
     private final DefaultListModel<String> reportListModel;
+
+    /**
+     * Komponent wyświetlający raporty
+     */
     private final JList<String> reportList;
 
+    /**
+     * Tworzy panel raportów dla wypożyczalni.
+     *
+     * @param rentalManager obiekt zarządzający danymi wypożyczalni
+     */
     public ReportPanel(RentalManager rentalManager) {
         this.rentalManager = rentalManager;
         this.reportListModel = new DefaultListModel<>();
@@ -28,6 +45,11 @@ public class ReportPanel extends JPanel {
         add(new JScrollPane(reportList), BorderLayout.CENTER);
     }
 
+    /**
+     * Tworzy pasek narzędziowy z przyciskami do generowania raportów.
+     *
+     * @return panel z przyciskami raportów
+     */
     private JPanel createToolbar() {
         JPanel panel = new JPanel();
 
@@ -46,6 +68,9 @@ public class ReportPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Wyświetla listę dostępnych nart.
+     */
     private void showAvailableSkis() {
         reportListModel.clear();
         List<Ski> available = rentalManager.getAvailableSkis();
@@ -56,6 +81,9 @@ public class ReportPanel extends JPanel {
         }
     }
 
+    /**
+     * Wyświetla listę aktywnych wypożyczeń.
+     */
     private void showActiveRentals() {
         reportListModel.clear();
         List<Rental> active = rentalManager.getActiveRentals();
@@ -66,6 +94,9 @@ public class ReportPanel extends JPanel {
         }
     }
 
+    /**
+     * Wyświetla listę przeterminowanych wypożyczeń.
+     */
     private void showOverdueRentals() {
         reportListModel.clear();
         List<Rental> overdue = rentalManager.getOverdueRentals(LocalDateTime.now());

@@ -3,58 +3,83 @@ package projekt4.model;
 import org.junit.jupiter.api.Test;
 import projekt4.model.Ski;
 import projekt4.model.SkiType;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class SkiTest {
-
-    SkiType type = new SkiType("All-Mountain", "Uniwersalne");
-    Ski ski = new Ski(type, "Volkl", "Racetiger", "Marker", 170);
-
-    @Test
-    void getType() {
+public class SkiTest {
+    /**
+     * Typ nart
+     */
+    SkiType type = new SkiType("Biegówki", "Uniwersalne");
+    /**
+     * Tworzenie obiektu Ski
+     */
+    Ski ski = new Ski(type, "Head", "Q10", "Biegowe", 170);
+/**
+ * Testy getterów
+ */
+/**
+ * Typ nart
+ */
+@Test
+    public void getTypeTest() {
         assertEquals(type, ski.getType());
     }
-
+    /**
+     * Marka
+     */
     @Test
-    void getBrand() {
-        assertEquals("Volkl", ski.getBrand());
+    public void getBrandtest() {
+        assertEquals("Head", ski.getBrand());
     }
-
+    /**
+     * Model
+     */
     @Test
-    void getModel() {
-        assertEquals("Racetiger", ski.getModel());
+    public void getModelTest() {
+        assertEquals("Q10", ski.getModel());
     }
-
+    /**
+     * Wiązania
+     */
     @Test
-    void getBindings() {
-        assertEquals("Marker", ski.getBindings());
+    public void getBindingsTest() {
+        assertEquals("Biegowe", ski.getBindings());
     }
-
+    /**
+     * długość
+     */
     @Test
-    void getLength() {
+    public void getLengthTest() {
         assertEquals(170, ski.getLength());
     }
-
+    /**
+     * Test domyślnego stanu wypożyczenia (Wymagane false)
+     */
     @Test
-    void isRented() {
+    public void isRentedTest() {
         assertFalse(ski.isRented());
     }
-
+    /**
+     * Sprawdza, czy opis zawiera markę
+     */
     @Test
-    void testToString() {
-        assertTrue(ski.toString().contains("Volkl"));
+    public void toStringTest() {
+        assertTrue(ski.toString().contains("Head"));
     }
-
+    /**
+     * Sprawdza równość identycznych obiektów
+     */
     @Test
-    void testEquals() {
-        Ski s2 = new Ski(type, "Volkl", "Racetiger", "Marker", 170);
+    public void equalsTest() {
+        Ski s2 = new Ski(type, "Head", "Q10", "Biegowe", 170);
         assertEquals(ski, s2);
     }
-
+    /**
+     * Sprawdza, czy równe obiekty mają taki sam hash
+     */
     @Test
-    void testHashCode() {
-        Ski s2 = new Ski(type, "Volkl", "Racetiger", "Marker", 170);
+    public void hashCodeTest() {
+        Ski s2 = new Ski(type, "Head", "Q10", "Biegowe", 170);
         assertEquals(ski.hashCode(), s2.hashCode());
     }
 }
