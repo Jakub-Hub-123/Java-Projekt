@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"<Unnamed>","c":"Wypozyczalnia","l":"createGUI()"},{"p":"<Unnamed>","c":"Wypozyczalnia","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"<Unnamed>","c":"WypozycalniaTest","l":"WypozycalniaTest()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Wypozyczalnia","l":"Wypozyczalnia()","u":"%3Cinit%3E()"}];updateSearchResults();
